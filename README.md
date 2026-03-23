@@ -1,7 +1,5 @@
 Materiais utilizados na disciplina **Aprendizado de Máquina** do curso de Bacharelado em Ciência da Computação da [CESAR School](https://www.cesar.school/) ministrada no semestre 2026.1.
 
-[![CI - ML Pipeline Validation](https://github.com/ddefbcourses/ml-course/actions/workflows/ci.yml/badge.svg)](https://github.com/ddefbcourses/ml-course/actions/workflows/ci.yml)
-
 **Sumário**
 - [Introdução](#introdução)
     - [Objetivo](#objetivo)
