@@ -6,11 +6,18 @@ on:
 
 jobs:
   test:
+    name: Test ML Pipeline
     runs-on: ubuntu-24.04
 
     steps:
       - name: Checkout repository
         uses: actions/checkout@v3
+
+      - name: Setup Python & dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt || echo "requirements.txt não encontrado, seguindo..."
+          pip install notebook nbconvert pytest numpy scikit-learn
 
       - name: Download official tests
         uses: actions/checkout@v3
@@ -24,23 +31,15 @@ jobs:
           rm -rf assignments/E02/tests
           cp -r official-tests/assignments/E02/tests assignments/E02/
 
-      - name: Setup Python
-        uses: actions/setup-python@v4
-        with:
-          python-version: "3.11"
-
-      - name: Install dependencies
-        run: |
-          pip install --upgrade pip
-          pip install -r requirements.txt
-
-      - name: Convert notebook to script
+      - name: Convert notebook to Python script
         run: |
           jupyter nbconvert assignments/E02/E02_Ensemble_Learning.ipynb \
             --to python \
             --output notebook.py \
             --output-dir .
+          echo "Notebook convertido para notebook.py"
 
       - name: Run tests
         run: |
-          pytest assignments/E02/tests -v
+          echo "Iniciando execução dos testes..."
+          pytest assignments/E02/tests -v --maxfail=3 --disable-warnings || exit 1
